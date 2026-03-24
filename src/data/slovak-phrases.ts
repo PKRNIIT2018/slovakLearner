@@ -1,6 +1,7 @@
 import type { PhraseSection } from "@/types/learning"
+import { TATOEBA_SECTIONS } from "./tatoeba-phrases"
 
-export const SLOVAK_SECTIONS: PhraseSection[] = [
+const HAND_CURATED_SECTIONS: PhraseSection[] = [
   {
     icon: "🏥",
     title: "Hospital & Doctor",
@@ -457,4 +458,20 @@ export const SLOVAK_SECTIONS: PhraseSection[] = [
       { id: "ph-35-volam-rodicom-kazdu-nedelu", english: "I call my parents every Sunday.", slovak: "Volám rodičom každú nedeľu.", grammar_focus: "present" },
     ],
   },
+]
+
+// Merge curated + Tatoeba, deduplicating by Slovak text (curated takes priority).
+const _seen = new Set(HAND_CURATED_SECTIONS.flatMap(s => s.phrases.map(p => p.slovak)))
+const _dedupedTatoeba = TATOEBA_SECTIONS.map(section => ({
+  ...section,
+  phrases: section.phrases.filter(p => {
+    if (_seen.has(p.slovak)) return false
+    _seen.add(p.slovak)
+    return true
+  }),
+})).filter(s => s.phrases.length > 0)
+
+export const SLOVAK_SECTIONS: PhraseSection[] = [
+  ...HAND_CURATED_SECTIONS,
+  ..._dedupedTatoeba,
 ]
