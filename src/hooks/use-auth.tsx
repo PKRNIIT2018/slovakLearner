@@ -37,10 +37,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   async function signOut() {
-    // Clear local state before sign-out so the next user's data loads cleanly
+    // Sign out first to stop Firestore sync, then clear local state
+    await firebaseSignOut(auth)
     localStorage.removeItem("ins-slovak-learning-v1")
     _rawSlovakStore.setState({ ...DEFAULT_STORE })
-    await firebaseSignOut(auth)
   }
 
   return (

@@ -1,6 +1,7 @@
 import { Suspense } from "react"
 import { LearnSlovakTabs } from "@/components/ui/learn-slovak-tabs"
 import { UserButton } from "@/components/ui/user-button"
+import { ErrorBoundary } from "@/components/ui/error-boundary"
 
 export const metadata = {
   title: "Play — Slovak Learning Game",
@@ -14,9 +15,11 @@ export default function GamePage() {
           <h1 className="text-3xl font-black">Slovak Learning Game</h1>
           <UserButton />
         </div>
-        <Suspense>
-          <LearnSlovakTabs />
-        </Suspense>
+        <ErrorBoundary label="game">
+          <Suspense>
+            <LearnSlovakTabs />
+          </Suspense>
+        </ErrorBoundary>
       </div>
     </main>
   )

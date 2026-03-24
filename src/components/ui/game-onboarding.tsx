@@ -12,8 +12,8 @@ const STORAGE_KEY = "ins-slovak-onboarding-done"
 const STEPS = [
   {
     icon: "💬",
-    title: "Three ways to learn",
-    body: "Vocabulary for words, Sentences for fluency, Situations for real conversations. Pick any tab to start.",
+    title: "Six ways to learn",
+    body: "Vocabulary, Sentences, Situations, Grammar, Conversations, and Culture. Each tab is a different skill — pick any to start.",
   },
   {
     icon: "📖",
@@ -22,13 +22,18 @@ const STEPS = [
   },
   {
     icon: "🎮",
-    title: "Three game modes",
-    body: "Learn flips cards at your pace. Quiz tests with 4 choices. Speed is a 60-second blitz. Start with Learn.",
+    title: "Four game modes",
+    body: "Learn flips cards at your pace. Quiz tests with 4 choices. Speed is a 60-second blitz. Match pairs cards. Start with Learn.",
+  },
+  {
+    icon: "☁️",
+    title: "Sign in to sync progress",
+    body: "Sign in with Google to save your XP, streak, and mastered items across devices. Or just play — progress saves locally too.",
   },
   {
     icon: "🔥",
-    title: "Your progress saves automatically",
-    body: "XP, streaks, and mastered items are stored locally. Come back daily to keep your streak alive.",
+    title: "Build your streak",
+    body: "XP and streaks reset at midnight Bratislava time. Come back daily to keep your streak alive.",
   },
 ]
 
@@ -69,7 +74,6 @@ export function GameOnboarding() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 sm:p-6 bg-black/30 backdrop-blur-[2px]"
-          onClick={dismiss}
         >
           <motion.div
             initial={{ opacity: 0, y: 40, scale: 0.96 }}
@@ -126,7 +130,7 @@ export function GameOnboarding() {
               {step < STEPS.length - 1 && (
                 <button
                   onClick={dismiss}
-                  className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 hover:text-muted-foreground transition-colors"
+                  className="min-h-[44px] min-w-[44px] px-3 text-xs font-bold uppercase tracking-widest text-muted-foreground/60 hover:text-muted-foreground transition-colors"
                 >
                   Skip
                 </button>

@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { MotionProvider } from "@/components/motion-provider"
 import { AuthProvider } from "@/hooks/use-auth"
 import { FirestoreSyncMount } from "@/components/firestore-sync-mount"
+import { ErrorBoundary } from "@/components/ui/error-boundary"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -15,7 +16,7 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="sk" suppressHydrationWarning>
       <body className="min-h-screen bg-background font-sans antialiased">
         {GA_ID && (
           <>
@@ -37,7 +38,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <MotionProvider>
             <AuthProvider>
               <FirestoreSyncMount />
-              {children}
+              <ErrorBoundary label="app">
+                {children}
+              </ErrorBoundary>
             </AuthProvider>
           </MotionProvider>
         </ThemeProvider>

@@ -273,15 +273,36 @@ const _useSlovakStore = create<StoreState>()(
       name: "ins-slovak-learning-v1",              // same key — avoids key-not-found on v1 devices
       storage: createJSONStorage(() => localStorage),
       version: 2,
+      onRehydrateStorage: () => (_state, error) => {
+        if (error) {
+          console.warn("[SlovakStore] Corrupted localStorage — resetting to defaults:", error)
+          _useSlovakStore.setState({ ...DEFAULT_STORE })
+        }
+      },
       migrate: (persisted: unknown, fromVersion: number): SlovakStore => {
         if (fromVersion < 2) {
           const v1 = persisted as Record<string, unknown>
           const lookup = buildSlovakToIdLookup()
+          const phrases = (v1.learnedPhrases as string[]) ?? []
+          const matched: string[] = []
+          const unmatched: string[] = []
+          for (const sk of phrases) {
+            const id = lookup[sk]
+            if (id) {
+              matched.push(id)
+            } else {
+              unmatched.push(sk)
+            }
+          }
+          if (unmatched.length > 0) {
+            console.warn(
+              `[store v1→v2] ${unmatched.length} learned item(s) could not be migrated (no ID match). ` +
+              `These entries have been dropped. Unmatched Slovak text: ${JSON.stringify(unmatched)}`
+            )
+          }
           return {
             ...DEFAULT_STORE,
-            learnedItems: ((v1.learnedPhrases as string[]) ?? [])
-              .map(sk => lookup[sk])
-              .filter(Boolean),
+            learnedItems: matched,
             xp: (v1.xp as number) ?? 0,
             streak: (v1.streak as SlovakStore["streak"]) ?? DEFAULT_STORE.streak,
             masteredSituations: (v1.masteredSituations as string[]) ?? [],

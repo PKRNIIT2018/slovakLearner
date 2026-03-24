@@ -15,3 +15,14 @@ export function getYesterdayBratislava(): string {
   d.setDate(d.getDate() - 1)
   return d.toLocaleDateString("sv-SE", { timeZone: "Europe/Bratislava" })
 }
+
+export function getBratislavaHour(): number {
+  return parseInt(
+    new Date().toLocaleString("en-US", {
+      timeZone: "Europe/Bratislava",
+      hour: "numeric",
+      hour12: false,
+    }),
+    10
+  )
+}

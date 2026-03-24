@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useMemo, useCallback, useEffect, useRef } from "react"
+import confetti from "canvas-confetti"
 import {
   Shuffle, Trophy, CheckCircle, XCircle,
   RotateCcw, BookOpen, Zap, Eye, EyeOff, ArrowLeft, Volume2,
@@ -504,12 +505,17 @@ function QuizMode({
         setFinished(true)
         addXP(nextXpSession)
         updateStreak()
+        const finalScore = score + (correct ? 1 : 0)
         recordQuestEvent?.("quiz_complete", 1)
-        if (score + (correct ? 1 : 0) >= 10) addAchievement?.("quiz_king")
+        if (finalScore >= 10) addAchievement?.("quiz_king")
+        // 🎉 Perfect score confetti
+        if (finalScore === shuffled.length) {
+          confetti({ particleCount: 160, spread: 70, colors: ["#FFD700", "#FFA500", "#FF6B35", "#fff"], origin: { y: 0.55 } })
+        }
         track({
           event: "quiz_complete",
           sectionTitle: section.title,
-          score: score + (correct ? 1 : 0),
+          score: finalScore,
           total: shuffled.length,
           xpEarned: nextXpSession,
         })
@@ -526,7 +532,7 @@ function QuizMode({
         setSelected(null)
         questionStartRef.current = Date.now()
       }
-    }, 950)
+    }, 600)
   }
 
   const restart = () => {

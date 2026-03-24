@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Settings } from "lucide-react"
+import { Settings, HelpCircle } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,6 +24,11 @@ export function GameSettings() {
   const [confirmOpen, setConfirmOpen] = useState(false)
   const { user } = useAuth()
 
+  function handleHowToPlay() {
+    localStorage.removeItem("ins-slovak-onboarding-done")
+    window.location.reload()
+  }
+
   async function handleReset() {
     localStorage.removeItem("ins-slovak-learning-v1")
     if (user) {
@@ -45,6 +50,13 @@ export function GameSettings() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-44">
           <DropdownMenuItem
+            className="cursor-pointer gap-2"
+            onSelect={handleHowToPlay}
+          >
+            <HelpCircle size={14} />
+            How to play
+          </DropdownMenuItem>
+          <DropdownMenuItem
             className="text-destructive focus:text-destructive cursor-pointer"
             onSelect={() => setConfirmOpen(true)}
           >
@@ -59,7 +71,7 @@ export function GameSettings() {
             <DialogTitle>Reset all progress?</DialogTitle>
             <DialogDescription>
               This will permanently delete your XP, streak, and all learned
-              phrases. This cannot be undone.
+              items — locally{user ? " and from the cloud" : ""}. This cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="gap-2 sm:gap-0">

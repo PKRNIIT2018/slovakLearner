@@ -56,24 +56,32 @@ export function LearnSlovakTabs() {
       {/* Tab selector + settings */}
       <div className="flex items-center gap-2 mb-8 min-w-0">
         <div className="flex-1 overflow-x-auto scrollbar-none -mx-1 px-1">
-          <div className="flex gap-1 bg-muted/60 p-1 rounded-2xl w-max border border-border/50 min-w-full sm:min-w-0 sm:w-fit">
+          <div role="tablist" aria-label="Learning tabs" className="flex gap-1 bg-muted/60 p-1 rounded-2xl w-max border border-border/50 min-w-full sm:min-w-0 sm:w-fit">
             {TABS.map(t => (
               <button
                 key={t.id}
+                role="tab"
+                aria-selected={tab === t.id}
+                aria-controls={`panel-${t.id}`}
                 onClick={() => selectTab(t.id)}
                 className={cn(
-                  "flex flex-col items-start gap-0 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap",
+                  "group flex flex-col items-start gap-0 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap",
                   tab === t.id
                     ? "bg-background text-foreground shadow-sm border border-border/40"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  <span>{t.icon}</span>
-                  <span className="hidden xs:inline sm:inline">{t.label}</span>
+                  <span aria-hidden="true">{t.icon}</span>
+                  <span>{t.label}</span>
                 </div>
-                {t.subtitle && tab === t.id && (
-                  <span className="hidden sm:block text-xs text-muted-foreground font-normal mt-0.5">
+                {t.subtitle && (
+                  <span className={cn(
+                    "hidden sm:block text-xs font-normal mt-0.5 max-h-0 overflow-hidden transition-all duration-200",
+                    tab === t.id
+                      ? "max-h-8 text-muted-foreground"
+                      : "group-hover:max-h-8 group-focus:max-h-8 text-muted-foreground/70"
+                  )}>
                     {t.subtitle}
                   </span>
                 )}
@@ -86,17 +94,17 @@ export function LearnSlovakTabs() {
 
       {/* Game panels — lazy mount, then keep alive to preserve state */}
       {mounted.situations && (
-        <div className={tab === "situations" ? "block" : "hidden"}>
+        <div id="panel-situations" role="tabpanel" className={tab === "situations" ? "block" : "hidden"}>
           <PhraseGameHub sections={SLOVAK_SECTIONS} />
         </div>
       )}
       {mounted.words && (
-        <div className={tab === "words" ? "block" : "hidden"}>
+        <div id="panel-words" role="tabpanel" className={tab === "words" ? "block" : "hidden"}>
           <WordGameHub />
         </div>
       )}
       {mounted.sentences && (
-        <div className={tab === "sentences" ? "block" : "hidden"}>
+        <div id="panel-sentences" role="tabpanel" className={tab === "sentences" ? "block" : "hidden"}>
           <InfoBox variant="tip" className="mb-6">
             These are complete sentences built from your Vocabulary words. Practice them after learning the words in the Vocabulary tab.
           </InfoBox>
@@ -104,17 +112,17 @@ export function LearnSlovakTabs() {
         </div>
       )}
       {mounted.grammar && (
-        <div className={tab === "grammar" ? "block" : "hidden"}>
+        <div id="panel-grammar" role="tabpanel" className={tab === "grammar" ? "block" : "hidden"}>
           <GrammarMode />
         </div>
       )}
       {mounted.conversation && (
-        <div className={tab === "conversation" ? "block" : "hidden"}>
+        <div id="panel-conversation" role="tabpanel" className={tab === "conversation" ? "block" : "hidden"}>
           <ConversationMode />
         </div>
       )}
       {mounted.culture && (
-        <div className={tab === "culture" ? "block" : "hidden"}>
+        <div id="panel-culture" role="tabpanel" className={tab === "culture" ? "block" : "hidden"}>
           <CultureMode />
         </div>
       )}

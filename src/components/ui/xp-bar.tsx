@@ -24,8 +24,13 @@ function XpRing({
   const offset = circ * (1 - Math.min(progress, 1))
 
   return (
-    <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="-rotate-90">
+    <div
+      className="relative flex items-center justify-center"
+      style={{ width: size, height: size }}
+      role="img"
+      aria-label={isMaxLevel ? "Max level" : `Level progress: ${Math.round(progress * 100)}%`}
+    >
+      <svg width={size} height={size} className="-rotate-90" aria-hidden="true">
         {/* Track */}
         <circle
           cx={size / 2} cy={size / 2} r={r}
@@ -87,11 +92,6 @@ export function LevelUpModal({
     return () => clearTimeout(t)
   }, [])
 
-  useEffect(() => {
-    const t = setTimeout(onDismiss, 3000)
-    return () => clearTimeout(t)
-  }, [onDismiss])
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -116,7 +116,12 @@ export function LevelUpModal({
           Level {level}
         </h2>
         <p className="text-xl font-bold text-muted-foreground">{label}</p>
-        <p className="text-xs text-muted-foreground/60 mt-6">Tap anywhere to continue</p>
+        <button
+          onClick={onDismiss}
+          className="mt-8 w-full h-11 rounded-2xl bg-primary text-primary-foreground font-black uppercase tracking-widest text-[10px] shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-95"
+        >
+          Continue
+        </button>
       </motion.div>
     </motion.div>
   )
@@ -146,7 +151,7 @@ export function XpBar({ xp }: { xp: number }) {
         <XpRing
           progress={info.progress}
           size={52}
-          label={`L${info.level + 1}`}
+          label={`L${info.level}`}
           isMaxLevel={isMaxLevel}
         />
         <div>

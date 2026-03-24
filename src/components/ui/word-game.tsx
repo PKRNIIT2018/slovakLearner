@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useMemo, useCallback, useEffect, useRef } from "react"
+import confetti from "canvas-confetti"
 import {
   CheckCircle, XCircle, RotateCcw, BookOpen, Zap,
   ArrowLeft, Volume2, Shuffle, Trophy, Target, Timer, Flame, ChevronDown, Turtle, Puzzle, Lightbulb,
@@ -211,7 +212,7 @@ function XpFloats({ floats }: { floats: { id: number; amount: number }[] }) {
       {floats.map(f => (
         <span
           key={f.id}
-          className="absolute left-1/2 -translate-x-1/2 bottom-0 text-xs font-black text-amber-500 animate-xp-float z-50 select-none"
+          className="absolute left-1/2 -translate-x-1/2 -bottom-4 text-sm font-black px-3 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-lg animate-xp-float z-50 select-none whitespace-nowrap"
         >
           +{f.amount} XP
         </span>
@@ -333,9 +334,19 @@ function CategoryCard({
       <span className="text-[10px] font-bold text-foreground leading-tight group-hover:text-primary transition-colors mt-1">
         {cat.title}
       </span>
-      <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-tighter mt-auto pt-1">
-        {learned}/{cat.words.length} items
-      </span>
+      <div className="w-full mt-auto pt-2 space-y-1">
+        <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
+          <motion.div
+            className={cn("h-full rounded-full", mastered ? "bg-amber-400" : "bg-primary")}
+            initial={{ width: 0 }}
+            animate={{ width: `${cat.words.length > 0 ? (learned / cat.words.length) * 100 : 0}%` }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+          />
+        </div>
+        <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-tighter">
+          {learned}/{cat.words.length}
+        </span>
+      </div>
     </motion.button>
   )
 }
@@ -434,10 +445,16 @@ function CategorySelector({
 
       {/* Empty state */}
       {filtered.length === 0 ? (
-        <div className="text-center py-12 text-muted-foreground">
-          <p className="text-2xl mb-2">🔍</p>
-          <p className="text-sm font-semibold">No {levelFilter} categories yet</p>
-          <p className="text-xs mt-1">Check back soon — more content is being added.</p>
+        <div className="text-center py-12">
+          <p className="text-3xl mb-3">🔍</p>
+          <p className="text-sm font-bold text-foreground mb-1">No {levelFilter} categories yet</p>
+          <p className="text-xs text-muted-foreground mb-4">Try a different level or browse everything.</p>
+          <button
+            onClick={() => setLevelFilter("all")}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-black uppercase tracking-widest shadow-sm hover:opacity-90 transition-opacity"
+          >
+            Show all categories
+          </button>
         </div>
       ) : (
         <div className="space-y-6">
@@ -605,11 +622,13 @@ function QuizFeedbackPanel({
   word,
   level,
   correctAnswer,
+  wrongStreak = 0,
 }: {
   correct: boolean
   word: Word
   level?: "beginner" | "intermediate" | "advanced"
   correctAnswer: string
+  wrongStreak?: number
 }) {
   if (correct) {
     // On correct: show example sentence if available (all levels)
@@ -628,6 +647,18 @@ function QuizFeedbackPanel({
 
   // Wrong answer feedback — depth varies by level
   const lines: React.ReactNode[] = []
+
+  // Near-miss encouragement — shown when on a wrong-answer streak
+  const encouragement =
+    wrongStreak >= 3 ? "💪 You're building muscle memory — this one's tricky!"
+    : wrongStreak >= 2 ? "🌟 Keep going — you're closer than you think!"
+    : level === "beginner" ? "🌈 Every expert started right here. You've got this!"
+    : null
+  if (encouragement) {
+    lines.push(
+      <p key="enc" className="text-amber-600 dark:text-amber-400 font-semibold">{encouragement}</p>
+    )
+  }
 
   if (level === "beginner") {
     lines.push(
@@ -721,6 +752,7 @@ function QuizMode({
   )
   const [xpSession, setXpSession] = useState(() => resumeData?.xpEarnedThisSession ?? 0)
   const [combo, setCombo] = useState(0)
+  const [wrongStreak, setWrongStreak] = useState(0)
   const [shakeWrong, setShakeWrong] = useState(false)
   const [finished, setFinished] = useState(false)
   const [runKey, setRunKey] = useState(0)
@@ -797,6 +829,7 @@ function QuizMode({
     let nextWrongAnswers = wrongAnswers
     if (correct) {
       setScore(s => s + 1)
+      setWrongStreak(0)
       const newCombo = combo + 1
       setCombo(newCombo)
       const multiplier = newCombo >= 5 ? 1.5 : 1
@@ -805,6 +838,7 @@ function QuizMode({
       emitXp(earnedThisAnswer)
     } else {
       setCombo(0)
+      setWrongStreak(s => s + 1)
       setShakeWrong(true)
       setTimeout(() => setShakeWrong(false), 450)
       const newEntry = {
@@ -827,13 +861,18 @@ function QuizMode({
         setFinished(true)
         addXP(nextXpSession)
         updateStreak()
-        updateQuizBestScore?.(score + (correct ? 1 : 0))
+        const finalScore = score + (correct ? 1 : 0)
+        updateQuizBestScore?.(finalScore)
         recordQuestEvent?.("quiz_complete", 1)
-        if (score + (correct ? 1 : 0) >= 10) addAchievement?.("quiz_king")
+        if (finalScore >= 10) addAchievement?.("quiz_king")
+        // 🎉 Perfect score confetti
+        if (finalScore === shuffled.length) {
+          confetti({ particleCount: 160, spread: 70, colors: ["#FFD700", "#FFA500", "#FF6B35", "#fff"], origin: { y: 0.55 } })
+        }
         track({
           event: "quiz_complete",
           sectionTitle: category.title,
-          score: score + (correct ? 1 : 0),
+          score: finalScore,
           total: shuffled.length,
           xpEarned: nextXpSession,
         })
@@ -849,14 +888,14 @@ function QuizMode({
         setSelected(null)
         questionStartRef.current = Date.now()
       }
-    }, 950)
+    }, 600)
   }
 
   const restart = () => {
     clearCheckpoint()
     setShuffled(buildReviewQueue(category.words, weights ?? {}, { maxSize: category.words.length, recentCache }))
     setCurrentIdx(0); setScore(0); setXpSession(0)
-    setCombo(0); setShakeWrong(false); setSelected(null)
+    setCombo(0); setWrongStreak(0); setShakeWrong(false); setSelected(null)
     setFinished(false); setRunKey(k => k + 1); setWrongAnswers([])
   }
 
@@ -969,20 +1008,34 @@ function QuizMode({
             {combo >= 3 && (
               <motion.span
                 key={combo}
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.5, opacity: 0 }}
+                initial={{ scale: 0.4, opacity: 0, rotate: -8 }}
+                animate={combo >= 10
+                  ? { scale: [1, 1.25, 1], opacity: 1, rotate: [0, 4, -4, 0] }
+                  : { scale: 1, opacity: 1, rotate: 0 }
+                }
+                exit={{ scale: 0.4, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 className={cn(
-                  "flex items-center gap-1 text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-full border",
-                  combo >= 5
-                    ? "text-amber-600 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-700"
-                    : "text-orange-600 bg-orange-50 dark:bg-orange-950/40 border-orange-200 dark:border-orange-800"
+                  "flex items-center gap-1 font-black uppercase tracking-widest px-2.5 py-1 rounded-full border",
+                  combo >= 10
+                    ? "text-[11px] text-white bg-gradient-to-r from-red-500 to-orange-500 border-red-400 shadow-lg shadow-red-500/30"
+                    : combo >= 5
+                    ? "text-[10px] text-amber-600 bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-700 shadow-sm"
+                    : "text-[10px] text-orange-600 bg-orange-50 dark:bg-orange-950/40 border-orange-200 dark:border-orange-800"
                 )}
               >
-                <Flame className="w-3 h-3 fill-current" /> {combo}× {combo >= 5 ? "1.5× XP!" : "Combo"}
+                <Flame className={cn("fill-current", combo >= 10 ? "w-3.5 h-3.5" : "w-3 h-3")} />
+                {combo >= 10 ? `${combo}× INCREDIBLE!` : combo >= 5 ? `${combo}× 1.5× XP!` : `${combo}× Combo`}
               </motion.span>
             )}
           </AnimatePresence>
+          {/* Screen edge glow at 10× combo */}
+          {combo >= 10 && (
+            <div
+              className="pointer-events-none fixed inset-0 z-10"
+              style={{ boxShadow: "inset 0 0 80px rgba(249,115,22,0.25)" }}
+            />
+          )}
           <div className="relative">
             <span className="text-sm font-black italic text-primary">+{xpSession} XP</span>
             <XpFloats floats={floats} />
@@ -1063,6 +1116,7 @@ function QuizMode({
             word={current}
             level={category.level}
             correctAnswer={correctAnswer ?? ""}
+            wrongStreak={wrongStreak}
           />
         )}
       </AnimatePresence>
@@ -1120,6 +1174,7 @@ function SpeedMode({
       if (newBest) {
         setIsNewBest(true)
         updateBlitzBest("words", score)
+        confetti({ particleCount: 100, spread: 60, origin: { y: 0.6 } })
       }
       track({ event: "speed_complete", tab: "words", score, personalBest: newBest })
       recordQuestEvent?.("speed_streak", score)
@@ -1208,11 +1263,20 @@ function SpeedMode({
 
   const correctAnswer = direction === "en-sk" ? current?.slovak : current?.english
   return (
-    <div className="max-w-xl mx-auto space-y-6">
+    <div className="relative max-w-xl mx-auto space-y-6">
+      {/* Urgency vignette — appears at ≤5s */}
+      {timeLeft <= 5 && (
+        <div
+          className="pointer-events-none fixed inset-0 z-10 animate-vignette-pulse"
+          style={{ background: "radial-gradient(ellipse at center, transparent 55%, rgba(239,68,68,0.18) 100%)" }}
+        />
+      )}
       <div className="flex items-center justify-between font-black italic">
         <div className={cn(
           "flex items-center gap-2 text-xl",
-          timeLeft > 20 ? "text-primary" : timeLeft > 10 ? "text-amber-500" : "text-red-500"
+          timeLeft > 10 ? "text-primary" : "text-red-500",
+          timeLeft <= 10 && timeLeft > 5 && "animate-pulse",
+          timeLeft <= 5 && "animate-heartbeat"
         )}>
           <Timer className="w-5 h-5" /> {timeLeft}s
         </div>

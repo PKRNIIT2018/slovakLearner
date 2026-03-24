@@ -101,9 +101,14 @@ function TimerRing({ seconds, total }: { seconds: number; total: number }) {
   const circ = 2 * Math.PI * r
   const dash = circ * pct
   const urgent = seconds <= 10
+  const critical = seconds <= 5
 
   return (
-    <div className="relative flex items-center justify-center w-14 h-14">
+    <div className={cn(
+      "relative flex items-center justify-center w-14 h-14",
+      urgent && !critical && "animate-pulse",
+      critical && "animate-heartbeat"
+    )}>
       <svg className="absolute inset-0 -rotate-90" width="56" height="56" viewBox="0 0 56 56">
         <circle cx="28" cy="28" r={r} fill="none" stroke="currentColor" strokeWidth="3"
           className="text-border" />
@@ -329,7 +334,14 @@ export function MatchGame({
   const totalPairs = Math.min(words.length, ROUND_SIZE)
 
   return (
-    <div className="space-y-4">
+    <div className="relative space-y-4">
+      {/* Urgency vignette — appears at ≤5s */}
+      {timeLeft <= 5 && (
+        <div
+          className="pointer-events-none fixed inset-0 z-10 animate-vignette-pulse"
+          style={{ background: "radial-gradient(ellipse at center, transparent 55%, rgba(239,68,68,0.18) 100%)" }}
+        />
+      )}
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="space-y-0.5">

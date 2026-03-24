@@ -199,6 +199,16 @@
 }
 
 @layer base {
+  /* WCAG 2.4.7 — visible focus for all keyboard-navigable controls */
+  button:focus-visible,
+  [role="tab"]:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+@layer base {
   * {
     @apply border-border;
   }
@@ -260,12 +270,29 @@
 }
 .animate-xp-float { animation: xp-float 900ms ease-out forwards; }
 
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1) }
+  14%       { transform: scale(1.18) }
+  28%       { transform: scale(1) }
+  42%       { transform: scale(1.12) }
+  70%       { transform: scale(1) }
+}
+.animate-heartbeat { animation: heartbeat 0.7s ease-in-out infinite; }
+
+@keyframes vignette-pulse {
+  0%, 100% { opacity: 0.6 }
+  50%       { opacity: 1 }
+}
+.animate-vignette-pulse { animation: vignette-pulse 0.7s ease-in-out infinite; }
+
 /* ─── Reduced motion ───────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse,
   .animate-shake,
   .animate-bounce,
-  .animate-xp-float {
+  .animate-xp-float,
+  .animate-heartbeat,
+  .animate-vignette-pulse {
     animation: none !important;
   }
 }
