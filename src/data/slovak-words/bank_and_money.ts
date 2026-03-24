@@ -1,0 +1,30 @@
+import type { WordCategory } from "@/types/learning";
+
+export const BANK_AND_MONEY: WordCategory = {
+    icon: "🏦",
+    title: "Bank & Money",
+    description: "Financial services and transactions",
+    level: "intermediate",
+    words: [
+      { id: "w-bank-money-banka", english: "bank", slovak: "banka", type: "noun", gender: "feminine", pronunciation: "ban-ka", english_example: "I go to the bank on Monday.", slovak_example: "V pondelok idem do banky." },
+      { id: "w-bank-money-ucet", english: "account", slovak: "účet", type: "noun", gender: "masculine", pronunciation: "ú-čet", english_example: "I opened a bank account.", slovak_example: "Založil som si bankový účet." },
+      { id: "w-bank-money-hotovost", english: "cash", slovak: "hotovosť", type: "noun", gender: "feminine", pronunciation: "ho-to-vosť", english_example: "Do you accept cash?", slovak_example: "Beriete hotovosť?" },
+      { id: "w-bank-money-karta", english: "card", slovak: "karta", type: "noun", gender: "feminine", pronunciation: "kar-ta", english_example: "I paid by card.", slovak_example: "Zaplatil som kartou." },
+      { id: "w-bank-money-bankomat", english: "ATM", slovak: "bankomat", type: "noun", gender: "masculine", pronunciation: "ban-ko-mat", english_example: "Where is the nearest ATM?", slovak_example: "Kde je najbližší bankomat?" },
+      { id: "w-bank-money-vybrat", english: "withdraw", slovak: "vybrať", type: "verb", pronunciation: "vy-brať", english_example: "I need to withdraw money.", slovak_example: "Potrebujem vybrať peniaze." },
+      { id: "w-bank-money-vklad", english: "deposit", slovak: "vklad", type: "noun", gender: "masculine", pronunciation: "vklad", english_example: "I made a deposit.", slovak_example: "Urobil som vklad." },
+      { id: "w-bank-money-zostatok", english: "balance", slovak: "zostatok", type: "noun", gender: "masculine", pronunciation: "zos-ta-tok", english_example: "What is my account balance?", slovak_example: "Aký je zostatok na mojom účte?" },
+      { id: "w-bank-money-pozicka", english: "loan", slovak: "pôžička", type: "noun", gender: "feminine", pronunciation: "pô-žič-ka", english_example: "I applied for a loan.", slovak_example: "Požiadal som o pôžičku." },
+      { id: "w-bank-money-urok", english: "interest", slovak: "úrok", type: "noun", gender: "masculine", pronunciation: "ú-rok", english_example: "The interest rate is low.", slovak_example: "Úroková sadzba je nízka." },
+      { id: "w-bank-money-vymena", english: "exchange", slovak: "výmena", type: "noun", gender: "feminine", pronunciation: "vý-me-na", english_example: "I need currency exchange.", slovak_example: "Potrebujem výmenu meny." },
+      { id: "w-bank-money-kurz", english: "rate", slovak: "kurz", type: "noun", gender: "masculine", pronunciation: "kurz", english_example: "What is the exchange rate?", slovak_example: "Aký je kurz meny?" },
+      { id: "w-bank-money-poplatok", english: "fee", slovak: "poplatok", type: "noun", gender: "masculine", pronunciation: "pop-la-tok", english_example: "There is a service fee.", slovak_example: "Je tu servisný poplatok." },
+      { id: "w-bank-money-potvrdenka", english: "receipt", slovak: "potvrdenka", type: "noun", gender: "feminine", pronunciation: "pot-vr-den-ka", english_example: "Can I get a receipt?", slovak_example: "Môžem dostať potvrdenku?" },
+      { id: "w-bank-money-mzda", english: "wage", slovak: "mzda", type: "noun", gender: "feminine", pronunciation: "mzda", english_example: "Wages are paid monthly.", slovak_example: "Mzda je vyplácaná mesačne." },
+      { id: "w-bank-money-rozpocet", english: "budget", slovak: "rozpočet", type: "noun", gender: "masculine", pronunciation: "roz-po-čet", english_example: "We have a tight budget.", slovak_example: "Máme tesný rozpočet." },
+      { id: "w-bank-money-vydavok", english: "expense", slovak: "výdavok", type: "noun", gender: "masculine", pronunciation: "vý-da-vok", english_example: "Track your expenses.", slovak_example: "Sleduj svoje výdavky." },
+      { id: "w-bank-money-prijem", english: "income", slovak: "príjem", type: "noun", gender: "masculine", pronunciation: "prí-jem", english_example: "My income increased.", slovak_example: "Môj príjem sa zvýšil." },
+      { id: "w-bank-money-dan", english: "tax", slovak: "daň", type: "noun", gender: "feminine", pronunciation: "daň", english_example: "Income tax is due in April.", slovak_example: "Daň z príjmu je splatná v apríli." },
+      { id: "w-bank-money-platit", english: "to pay", slovak: "platiť", type: "verb", pronunciation: "pla-tiť", english_example: "I will pay by card.", slovak_example: "Zaplatím kartou." },
+    ],
+  };

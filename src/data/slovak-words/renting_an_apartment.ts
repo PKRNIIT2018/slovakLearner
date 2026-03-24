@@ -1,0 +1,30 @@
+import type { WordCategory } from "@/types/learning";
+
+export const RENTING_AN_APARTMENT: WordCategory = {
+    icon: "🏡",
+    title: "Renting an Apartment",
+    description: "Housing, contracts, and tenant rights",
+    level: "advanced",
+    words: [
+      { id: "w-renting-an-byt", english: "apartment", slovak: "byt", type: "noun", gender: "masculine", pronunciation: "byt", english_example: "I rent a small apartment.", slovak_example: "Prenajímam si malý byt." },
+      { id: "w-renting-an-prenajimatel", english: "landlord", slovak: "prenajímateľ", type: "noun", gender: "masculine", pronunciation: "pre-na-jí-ma-teľ", english_example: "My landlord is friendly.", slovak_example: "Môj prenajímateľ je milý." },
+      { id: "w-renting-an-najomca", english: "tenant", slovak: "nájomca", type: "noun", gender: "masculine", pronunciation: "ná-jom-ca", english_example: "As a tenant, I have rights.", slovak_example: "Ako nájomca mám práva." },
+      { id: "w-renting-an-najomna-zmluva", english: "lease", slovak: "nájomná zmluva", type: "noun", gender: "feminine", pronunciation: "ná-jom-ná zmlu-va", english_example: "Sign the lease agreement.", slovak_example: "Podpíšte nájomnú zmluvu." },
+      { id: "w-renting-an-najomne", english: "rent", slovak: "nájomné", type: "noun", gender: "neuter", pronunciation: "ná-jom-né", english_example: "The rent is 500 euros.", slovak_example: "Nájomné je 500 eur." },
+      { id: "w-renting-an-zaloha", english: "deposit", slovak: "záloha", type: "noun", gender: "feminine", pronunciation: "zá-lo-ha", english_example: "I paid a security deposit.", slovak_example: "Zaplatil som zálohu." },
+      { id: "w-renting-an-energie", english: "utilities", slovak: "energie", type: "noun", pronunciation: "e-ner-gie", english_example: "Are utilities included?", slovak_example: "Sú energie zahrnuté?" },
+      { id: "w-renting-an-zariadeny", english: "furnished", slovak: "zariadený", type: "adjective", pronunciation: "za-ria-de-ný", english_example: "The apartment is fully furnished.", slovak_example: "Byt je plne zariadený." },
+      { id: "w-renting-an-nezariadeny", english: "unfurnished", slovak: "nezariadený", type: "adjective", pronunciation: "ne-za-ria-de-ný", english_example: "I prefer an unfurnished flat.", slovak_example: "Uprednostňujem nezariadený byt." },
+      { id: "w-renting-an-balkon", english: "balcony", slovak: "balkón", type: "noun", gender: "masculine", pronunciation: "bal-kón", english_example: "The flat has a balcony.", slovak_example: "Byt má balkón." },
+      { id: "w-renting-an-pivnica", english: "cellar", slovak: "pivnica", type: "noun", gender: "feminine", pronunciation: "piv-ni-ca", english_example: "We have a cellar for storage.", slovak_example: "Máme pivnicu na uskladnenie vecí." },
+      { id: "w-renting-an-vytah", english: "elevator", slovak: "výťah", type: "noun", gender: "masculine", pronunciation: "vý-ťah", english_example: "The building has an elevator.", slovak_example: "Budova má výťah." },
+      { id: "w-renting-an-parkovanie", english: "parking", slovak: "parkovanie", type: "noun", gender: "neuter", pronunciation: "par-ko-va-nie", english_example: "Is parking included?", slovak_example: "Je parkovanie zahrnuté?" },
+      { id: "w-renting-an-sused", english: "neighbor", slovak: "sused", type: "noun", gender: "masculine", pronunciation: "su-sed", english_example: "My neighbor is noisy.", slovak_example: "Môj sused je hlučný." },
+      { id: "w-renting-an-staznost", english: "complaint", slovak: "sťažnosť", type: "noun", gender: "feminine", pronunciation: "sťaž-nosť", english_example: "I filed a complaint about noise.", slovak_example: "Podal som sťažnosť na hluk." },
+      { id: "w-renting-an-oprava", english: "repair", slovak: "oprava", type: "noun", gender: "feminine", pronunciation: "op-ra-va", english_example: "The heating needs repair.", slovak_example: "Kúrenie potrebuje opravu." },
+      { id: "w-renting-an-nastahovat-sa", english: "to move in", slovak: "nasťahovať sa", type: "verb", pronunciation: "nas-ťa-ho-vať sa", english_example: "We moved in last week.", slovak_example: "Nasťahovali sme sa minulý týždeň." },
+      { id: "w-renting-an-odstahovat-sa", english: "to move out", slovak: "odsťahovať sa", type: "verb", pronunciation: "od-sťa-ho-vať sa", english_example: "I will move out next month.", slovak_example: "Odsťahujem sa budúci mesiac." },
+      { id: "w-renting-an-prenajat-dalej", english: "to sublet", slovak: "prenajať ďalej", type: "verb", pronunciation: "pre-na-jať ďa-lej", english_example: "Can I sublet the apartment?", slovak_example: "Môžem byt prenajať ďalej?" },
+      { id: "w-renting-an-vystahovanie", english: "eviction", slovak: "vysťahovanie", type: "noun", gender: "neuter", pronunciation: "vys-ťa-ho-va-nie", english_example: "Eviction is a last resort.", slovak_example: "Vysťahovanie je posledná možnosť." },
+    ],
+  };

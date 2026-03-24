@@ -1,0 +1,30 @@
+import type { WordCategory } from "@/types/learning";
+
+export const ANIMALS: WordCategory = {
+    icon: "🐶",
+    title: "Animals",
+    description: "Common pets and wild animals",
+    level: "beginner",
+    words: [
+      { id: "w-animals-pes", english: "dog", slovak: "pes", type: "noun", gender: "masculine", pronunciation: "pes", english_example: "I have a dog.", slovak_example: "Mám psa." },
+      { id: "w-animals-macka", english: "cat", slovak: "mačka", type: "noun", gender: "feminine", pronunciation: "mač-ka", english_example: "The cat is sleeping.", slovak_example: "Mačka spí." },
+      { id: "w-animals-vtak", english: "bird", slovak: "vták", type: "noun", gender: "masculine", pronunciation: "vták", english_example: "A bird is singing.", slovak_example: "Vtáčik spieva." },
+      { id: "w-animals-ryba", english: "fish", slovak: "ryba", type: "noun", gender: "feminine", pronunciation: "ry-ba", english_example: "I keep fish in an aquarium.", slovak_example: "Chovám ryby v akváriu." },
+      { id: "w-animals-kon", english: "horse", slovak: "kôň", type: "noun", gender: "masculine", pronunciation: "kôň", english_example: "She rides a horse.", slovak_example: "Jazdí na koni." },
+      { id: "w-animals-krava", english: "cow", slovak: "krava", type: "noun", gender: "feminine", pronunciation: "kra-va", english_example: "The cow gives milk.", slovak_example: "Krava dáva mlieko." },
+      { id: "w-animals-prasa", english: "pig", slovak: "prasa", type: "noun", gender: "neuter", pronunciation: "pra-sa", english_example: "The pig is pink.", slovak_example: "Prasa je ružové." },
+      { id: "w-animals-ovca", english: "sheep", slovak: "ovca", type: "noun", gender: "feminine", pronunciation: "ov-ca", english_example: "Sheep give wool.", slovak_example: "Ovce dávajú vlnu." },
+      { id: "w-animals-koza", english: "goat", slovak: "koza", type: "noun", gender: "feminine", pronunciation: "ko-za", english_example: "The goat eats grass.", slovak_example: "Koza je trávu." },
+      { id: "w-animals-kralik", english: "rabbit", slovak: "králik", type: "noun", gender: "masculine", pronunciation: "krá-lik", english_example: "I have a pet rabbit.", slovak_example: "Mám králika ako zvieratko." },
+      { id: "w-animals-mys", english: "mouse", slovak: "myš", type: "noun", gender: "feminine", pronunciation: "myš", english_example: "The mouse is small.", slovak_example: "Myš je malá." },
+      { id: "w-animals-medved", english: "bear", slovak: "medveď", type: "noun", gender: "masculine", pronunciation: "med-veď", english_example: "Bears live in forests.", slovak_example: "Medvede žijú v lesoch." },
+      { id: "w-animals-vlk", english: "wolf", slovak: "vlk", type: "noun", gender: "masculine", pronunciation: "vlk", english_example: "The wolf howls at night.", slovak_example: "Vlk vyje v noci." },
+      { id: "w-animals-liska", english: "fox", slovak: "líška", type: "noun", gender: "feminine", pronunciation: "líš-ka", english_example: "The fox is clever.", slovak_example: "Líška je múdra." },
+      { id: "w-animals-jelen", english: "deer", slovak: "jeleň", type: "noun", gender: "masculine", pronunciation: "je-leň", english_example: "A deer ran through the forest.", slovak_example: "Jeleň prebehol lesom." },
+      { id: "w-animals-lev", english: "lion", slovak: "lev", type: "noun", gender: "masculine", pronunciation: "lev", english_example: "The lion is the king of animals.", slovak_example: "Lev je kráľom zvierat." },
+      { id: "w-animals-tiger", english: "tiger", slovak: "tiger", type: "noun", gender: "masculine", pronunciation: "ti-ger", english_example: "Tigers are striped.", slovak_example: "Tigre majú pruhy." },
+      { id: "w-animals-slon", english: "elephant", slovak: "slon", type: "noun", gender: "masculine", pronunciation: "slon", english_example: "Elephants are large.", slovak_example: "Slony sú veľké." },
+      { id: "w-animals-opica", english: "monkey", slovak: "opica", type: "noun", gender: "feminine", pronunciation: "o-pi-ca", english_example: "Monkeys live in trees.", slovak_example: "Opice žijú na stromoch." },
+      { id: "w-animals-had", english: "snake", slovak: "had", type: "noun", gender: "masculine", pronunciation: "had", english_example: "The snake is long.", slovak_example: "Had je dlhý." },
+    ],
+  };

@@ -1,0 +1,30 @@
+import type { WordCategory } from "@/types/learning";
+
+export const BOOKS_AND_READING: WordCategory = {
+    icon: "📚",
+    title: "Books & Reading",
+    description: "Literature and reading habits",
+    level: "intermediate",
+    words: [
+      { id: "w-books-readin-kniha", english: "book", slovak: "kniha", type: "noun", gender: "feminine", english_example: "I read a book every week.", slovak_example: "Každý týždeň čítam knihu." },
+      { id: "w-books-readin-roman", english: "novel", slovak: "román", type: "noun", gender: "masculine", english_example: "She wrote a historical novel.", slovak_example: "Napísala historický román." },
+      { id: "w-books-readin-autor", english: "author", slovak: "autor", type: "noun", gender: "masculine", english_example: "My favorite author is Tolkien.", slovak_example: "Môj obľúbený autor je Tolkien." },
+      { id: "w-books-readin-nazov", english: "title", slovak: "názov", type: "noun", gender: "masculine", english_example: "What's the title of the book?", slovak_example: "Aký je názov knihy?" },
+      { id: "w-books-readin-kapitola", english: "chapter", slovak: "kapitola", type: "noun", gender: "feminine", english_example: "Read chapter five.", slovak_example: "Prečítaj piatu kapitolu." },
+      { id: "w-books-readin-strana", english: "page", slovak: "strana", type: "noun", gender: "feminine", english_example: "Turn to page 100.", slovak_example: "Otoč na stranu 100." },
+      { id: "w-books-readin-obal", english: "cover", slovak: "obal", type: "noun", gender: "masculine", english_example: "The cover is damaged.", slovak_example: "Obal je poškodený." },
+      { id: "w-books-readin-viazana-kniha", english: "hardcover", slovak: "viazaná kniha", type: "noun", gender: "feminine", english_example: "I prefer hardcover books.", slovak_example: "Uprednostňujem viazané knihy." },
+      { id: "w-books-readin-brozovana-kniha", english: "paperback", slovak: "brožovaná kniha", type: "noun", gender: "feminine", english_example: "Paperbacks are cheaper.", slovak_example: "Brožované knihy sú lacnejšie." },
+      { id: "w-books-readin-kniznica", english: "library", slovak: "knižnica", type: "noun", gender: "feminine", english_example: "I borrowed this from the library.", slovak_example: "Požičal som si to z knižnice." },
+      { id: "w-books-readin-zalozka", english: "bookmark", slovak: "záložka", type: "noun", gender: "feminine", english_example: "Use a bookmark.", slovak_example: "Použi záložku." },
+      { id: "w-books-readin-beletria", english: "fiction", slovak: "beletria", type: "noun", gender: "feminine", english_example: "I like fiction more than non-fiction.", slovak_example: "Mám rád beletriu viac ako odbornú literatúru." },
+      { id: "w-books-readin-odborna-literatura", english: "non-fiction", slovak: "odborná literatúra", type: "noun", gender: "feminine", english_example: "This is a non-fiction book.", slovak_example: "Toto je odborná kniha." },
+      { id: "w-books-readin-zivotopis", english: "biography", slovak: "životopis", type: "noun", gender: "masculine", english_example: "I read his biography.", slovak_example: "Prečítal som si jeho životopis." },
+      { id: "w-books-readin-poezia", english: "poetry", slovak: "poézia", type: "noun", gender: "feminine", english_example: "She writes poetry.", slovak_example: "Píše poéziu." },
+      { id: "w-books-readin-casopis", english: "magazine", slovak: "časopis", type: "noun", gender: "masculine", english_example: "I subscribe to a magazine.", slovak_example: "Predplatujem si časopis." },
+      { id: "w-books-readin-noviny", english: "newspaper", slovak: "noviny", type: "noun", gender: "feminine", english_example: "He reads the newspaper daily.", slovak_example: "Číta noviny denne." },
+      { id: "w-books-readin-bestseller", english: "bestseller", slovak: "bestseller", type: "noun", gender: "masculine", english_example: "This book is a bestseller.", slovak_example: "Táto kniha je bestseller." },
+      { id: "w-books-readin-citat", english: "to read", slovak: "čítať", type: "verb", english_example: "I read before bed.", slovak_example: "Pred spaním čítam." },
+      { id: "w-books-readin-pozicat-si", english: "to borrow", slovak: "požičať si", type: "verb", english_example: "Can I borrow your book?", slovak_example: "Môžem si požičať tvoju knihu?" },
+    ],
+  };
